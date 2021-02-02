@@ -5,7 +5,7 @@
   "types": "dist/index.d.ts",
   "version": "0.0.1",
   "scripts": {
-    "dev": "tsc -p . -w --incremental",
+    "dev": "tsc -p . -w --incremental --outDir dist",
     "build": "rimraf dist && run-s build-bundle build-types",
     "build-bundle": "esbuild index.ts --bundle --platform=node --target=node12 --external:vite --outfile=dist/index.js",
     "build-types": "tsc -p . --emitDeclarationOnly --outDir dist"

@@ -39,14 +39,15 @@ export function fsPlugin(opts: {[route: string]: ServerHandler}): Plugin {
           optsResolved.push({ route, handler: opts[route] });
         }
       }
+      // console.debug("configureServer", optsResolved)
       optsResolved.forEach(({ route, handler }) => {
         if (handler.setup != null) {
           handler.setup(server)
         }
         if (handler.process == null) return
         const h = handler.process
-        server.app.use(route, async (req, res, next) => {
-          // console.log('custom-server', route, req.url)
+        server.middlewares.use(route, async (req, res, next) => {
+          console.log('custom-server', route, req.url)
           try {
             const resp = await h(req.url!)
             if (resp != null) {
